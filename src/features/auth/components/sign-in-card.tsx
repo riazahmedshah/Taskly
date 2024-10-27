@@ -10,24 +10,25 @@ import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
+import { loginSchema } from "../Schemas"
+import { useLogin } from "../api/use-login"
 
-
-const formSchema = z.object({
-    email: z.string().email(),
-    password:z.string().min(1, "Required"),
-})
 
 export const SignInCard = () => {
+    const { mutate } = useLogin();
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof loginSchema>>({
+        resolver: zodResolver(loginSchema),
         defaultValues: {
             email:"",
             password: ""
         }
     })
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+    const onSubmit = (values: z.infer<typeof loginSchema>) => {
+        console.log("Form submitted with values:", values); // Debugging
+        mutate({
+            json: values
+        });
     }
     return(
         <Card className="w-full h-full md:w-[487px] border-none shadow-none">
@@ -66,7 +67,7 @@ export const SignInCard = () => {
                                     <FormControl>
                                         <Input 
                                             {...field}
-                                            type="passwoed"
+                                            type="password"
                                             placeholder="Enter password"
                                         />
                                     </FormControl>
@@ -74,7 +75,7 @@ export const SignInCard = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button disabled={false} size="lg" className="w-full">
+                        <Button type="submit" disabled={false} size="lg" className="w-full">
                             Sign in
                         </Button>
                         
