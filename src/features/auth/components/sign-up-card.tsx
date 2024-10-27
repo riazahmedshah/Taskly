@@ -9,25 +9,22 @@ import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
+import { registerSchema } from "../Schemas"
 
 
-const formSchema = z.object({
-    name:z.string(),
-    email: z.string().email(),
-    password:z.string().min(6, "Required & must be atleast 6 characters"),
-})
+
 
 
 export const SignUpCard = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof registerSchema>>({
+        resolver: zodResolver(registerSchema),
         defaultValues: {
             name:"",
             email:"",
             password: ""
         }
     })
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const onSubmit = (values: z.infer<typeof registerSchema>) => {
         console.log(values)
     }
     return(
@@ -93,7 +90,7 @@ export const SignUpCard = () => {
                                     <FormControl>
                                         <Input 
                                             {...field}
-                                            type="passwoed"
+                                            type="password"
                                             placeholder="Enter password"
                                         />
                                     </FormControl>
@@ -101,7 +98,7 @@ export const SignUpCard = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button disabled={false} size="lg" className="w-full">
+                        <Button type="submit" disabled={false} size="lg" className="w-full">
                             Sign up
                         </Button>
                         
