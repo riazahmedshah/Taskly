@@ -10,12 +10,17 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { registerSchema } from "../Schemas"
+import { useRegister } from "../api/use-register"
 
 
 
 
 
 export const SignUpCard = () => {
+
+    const { mutate } = useRegister();
+   
+
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
@@ -25,7 +30,10 @@ export const SignUpCard = () => {
         }
     })
     const onSubmit = (values: z.infer<typeof registerSchema>) => {
-        console.log(values)
+        console.log("Form submitted with values:", values); // Debugging
+        mutate({
+            json: values
+        });
     }
     return(
         <Card className="w-full h-full md:w-[487px] border-none shadow-none">
