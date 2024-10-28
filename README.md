@@ -34,4 +34,8 @@ Creating Auth API
 Added milddleware
 ```
 
+![Screenshot of Sign-up page](./public/sign-up.png)
+![Screenshot of Sign-in page](./public/sign-in.png)
+
+
 
