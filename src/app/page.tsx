@@ -1,26 +1,24 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+"use client";
+
+import { useCurrent } from "@/features/auth/api/use-current";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 
 
 export default function Home() {
-  return (
-    <div className=" my-10">
-      <Input/>
-      <Button>
-        Primary
-      </Button>
-      <Button variant="destructive">
-        Destructive
-      </Button>
-      <Button variant="secondary">
-        Secondary
-      </Button>
-      <Button variant="muted">
-        Muted
-      </Button>
-      <Button variant="teritrary">
-        Muted
-      </Button>
+  const router = useRouter();
+  const {data, isLoading} = useCurrent();
+
+  useEffect(() => {
+    if(!data && !isLoading){
+      router.replace("/sign-in")
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[data])
+  return(
+    <div>
+      Only authorisez person can see this page.
     </div>
-  );
+  )
 }

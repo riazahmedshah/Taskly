@@ -27,10 +27,11 @@ appwrite
 
 ## Authentiction
 
-```bash
+```
 Created register and login pages with shad cn.
 Setting up Hono API
 Creating Auth API
+Added milddleware
 ```
 
 
