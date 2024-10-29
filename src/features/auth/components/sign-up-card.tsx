@@ -1,3 +1,4 @@
+"use client";
 import {z} from "zod"
 import {FcGoogle} from "react-icons/fc"
 
@@ -18,7 +19,7 @@ import { useRegister } from "../api/use-register"
 
 export const SignUpCard = () => {
 
-    const { mutate } = useRegister();
+    const { mutate, isPending } = useRegister();
    
 
     const form = useForm<z.infer<typeof registerSchema>>({
@@ -106,7 +107,7 @@ export const SignUpCard = () => {
                                 </FormItem>
                             )}
                         />
-                        <Button type="submit" disabled={false} size="lg" className="w-full">
+                        <Button type="submit" disabled={isPending} size="lg" className="w-full">
                             Sign up
                         </Button>
                         
@@ -117,7 +118,7 @@ export const SignUpCard = () => {
                 <DottedSeparator/>
                 <CardContent className="p-7 flex flex-col gap-y-4">
                     <Button 
-                      disabled={false}
+                      disabled={isPending}
                       variant="secondary"
                       size="lg"
                       className="w-full">
